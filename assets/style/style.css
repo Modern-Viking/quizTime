@@ -1,0 +1,92 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'serif', sans-serif;
+    padding: 0;
+    margin: 0;
+    background: black;
+    justify-content: center;  
+    align-content: center;
+     
+}
+
+.container{
+    background:blue;
+    color: white;
+    margin: 0 auto;
+    border-radius: 7px;
+    box-shadow: 0 0 10px 2px;
+    padding: 15px;
+    
+
+}
+
+.navbar{
+    border-bottom: 4px solid #001f3f;
+    margin-bottom: 20px
+}
+
+#start{
+    padding: 35px;
+    font-size: 20px;
+}
+
+.linebreak {
+    border: 2px #0074D9 solid;
+    width: 90%;
+
+}
+
+.navbar{
+    background: blue;
+    color: white;
+}
+
+.button-grid{
+    display: grid;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.btn{
+    border: 1px solid black;
+    padding: 10px 0;
+    
+}
+
+.btn-success:hover{
+    background: green;
+}
+
+.btn-danger:hover{
+    background: red;
+}
+
+.start-button, .next-button, .score-button, .clear-button {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin: 5px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.controls{
+    display: grid;
+    gap: 10px;
+}
+
+.hide{
+    display: none;
+}
+
+.score-container{
+    display: grid;
+    gap: 10px;
+}
