@@ -1,82 +1,174 @@
-    // Variables
+// Variables
 
-let startButtonEl = $("#start-btn");
-let qContainerEl = $('#question-container');
-let questionEl = $('#question');
-let aGridEl = $('#answer-buttons');
-let nextBtnEl = $('#next-btn');
-let answerBtnEl = $('#answer-buttons');
-let controlsEl = $('#controls');
-let scoreBtnEl = $('#score-btn');
-let scoreEl = $('#score-container')
-let clearBtnEl = $('#clr-btn');
-let timeEl = $('#time');
+// Element variables
+var start = $("#startBtn");
+var questionBox = $('#question-container');
+var questionTxt = $('#question');
+var answerBox = $('#answer-buttons');
+var nextBtn = $('#nextBtn');
+var answerBtn = $('#answer-buttons');
+var submitBtn = $('#submitBtn');
+var form = $('#user-form');
+var userEl = $('#user');
+var controls = $('#controls');
+var scoreBtn = $('#scoreBtn');
+var scoreBox = $('#score-container')
+var clearBtn = $('#clrBtn');
+var userDisp = $('#user-display');
+var userHeading = $('#user-heading');
+var timerDisp = $('#timer');
+var time = $('#time');
 
-    // Base Variables
-let questionIndex = 0;
-let questions = questionsList[questionIndex];
-let score = 0;
+// starting variables
+var questionIndex = 0;
+var questions = questionsList[questionIndex];
+var users = JSON.parse(localStorage.getItem("usersArr")) || [];
+var score = 0;
+var interval;
 
-    // Click Listeners
-startButtonEl.click(startQuiz);
-answerBtnEl.click(selectAnswer);
-nextBtnEl.click(nextQuestion);
-submitBtnEl.click(submitScore);
-scoreBtnEl.click(viewScores);
-clearBtnEl.click(clearScores);
+// Click Listeners
 
-    // Functions
+start.click(startQuiz);
+answerBtn.click(answerClick);
+nextBtn.click(nextQuestion);
+submitBtn.click(submitScore);
+scoreBtn.click(viewScores);
+clearBtn.click(clearScores);
+
+// Functions
 
 function startQuiz() {
+
     questionIndex = 0;
-    questions = questionsArr[questionIndex];
-    startButtonEl.addClass('hide');
-    scoreBtnEl.addClass('hide');
-    qContainerEl.removeClass('hide');
-    clearBtnEl.addClass('hide');
-    dispQuestion(questions);
+    questions = questionsList[questionIndex];
+    start.addClass('hide');
+    scoreBtn.addClass('hide');
+    questionBox.removeClass('hide');
+    scoreBox.addClass('hide');
+    userHeading.addClass('hide');
+    userDisp.addClass('hide');
+    clearBtn.addClass('hide');
+    timerDisp.removeClass('hide');
+    displayQuestion(questions);
     score = 90;
-    timeEl.text(`Time Left: ${score}`);
-    startTimer()
+    time.text(`Time Left: ${score}`);
+    timerStart()
 
 };
 
-function dispQuestion(question) {
-    aGridEl.empty();
-    questionEl.text(question.title);
+function displayQuestion(question) {
+    answerBox.empty();
+    questionTxt.text(question.title);
     $.each(question.choices, function (index, options) {
         let newButton = $('<button>');
         newButton.text(options);
         newButton.addClass('btn');
-        aGridEl.append(newButton);
+        answerBox.append(newButton);
     })
 };
 
-function selectAnswer(e) {
+function answerClick(e) {
      if ($(e.target).text() === questions.answer) {
          $(e.target).addClass('btn-success');
-         nextBtnEl.removeClass('hide');
+         nextBtn.removeClass('hide');
      } else if ($(e.target).text() !== questions.answer && $(e.target).hasClass('btn')){
+        //Alert user to wrong answer, flash score, and decrement score
         $(e.target).addClass('btn-danger');
         score -= 15;
-        timeEl.text(`Time Left: ${score}`)
-        timeEl.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+        time.text(`Time Left: ${score}`)
+        time.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
      }
 };
 
 function nextQuestion () {
     questionIndex++
-    questions = questionsArr[questionIndex]
-    if (questionIndex === questionsArr.length){
-        stopTimer()
-        
-        qContainerEl.addClass('hide')
-        formEl.removeClass('hide');
-        submitBtnEl.removeClass('hide');
-        nextBtnEl.addClass('hide');
-        timeEl.text(`Points: ${score}`)
+    questions = questionsList[questionIndex]
+    if (questionIndex === questionsList.length){
+        timerStop()
+        questionBox.addClass('hide')
+        form.removeClass('hide');
+        submitBtn.removeClass('hide');
+        nextBtn.addClass('hide');
+        time.text(`Points: ${score}`)
     } else {
-        dispQuestion(questions);
-        nextBtnEl.addClass('hide');
+        displayQuestion(questions);
+        nextBtn.addClass('hide');
     }
 };
+
+function submitScore () {
+    if (!user.value) {
+        form.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    } else {
+        let userJSON = {
+            username: user.value,
+            score: score
+        };
+        users.push(userJSON);
+        users.sort((a,b) => b.score - a.score );
+        users.splice(5);
+        localStorage.setItem('usersArr', JSON.stringify(users));
+
+        start.removeClass('hide');
+        start.text('Restart')
+        scoreBtn.addClass('hide');
+        scoreBox.removeClass('hide');
+        userDisp.removeClass('hide');
+        userHeading.removeClass('hide');
+        clearBtn.removeClass('hide');
+        timerDisp.addClass('hide');
+
+        displayUser()
+
+        }
+
+};
+
+function displayUser () {
+    userDisp.empty();
+
+    $.each(users, function (index, options) {
+        let newItem = $('<li>');
+        newItem.text(`${options.username} - ${options.score}`);
+        userDisp.append(newItem);
+    })
+
+    form.addClass('hide');
+    submitBtn.addClass('hide');
+    scoreBox.removeClass('hide');
+    userHeading.removeClass('hide');
+    clearBtn.removeClass('hide');
+    
+}
+
+function viewScores () {
+    start.removeClass('hide');
+    start.text('Start Quiz')
+    scoreBtn.addClass('hide');
+    scoreBox.removeClass('hide');
+    userHeading.removeClass('hide');
+    clearBtn.removeClass('hide');
+    displayUser()
+}
+
+function clearScores () {
+    userDisp.empty();
+    users = [];
+    localStorage.setItem('usersArr', '[]');
+}
+
+function timerStart () {
+    interval = setInterval(function () {
+        score--
+        if (score < 0) {
+            score = 0;
+            timerStop()
+        }
+        time.text(`Time Left: ${score}`)
+    }, 1000)
+    
+}
+    
+function timerStop () {
+    clearInterval(interval)
+}

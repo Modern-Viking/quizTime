@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
   <body>
       
       <nav class="navbar">
@@ -15,6 +13,7 @@
       </nav>      
     
     <div class="container">
+      <!-- display questions when prompted -->
       <div id="question-container" class="hide">
         <div id="question">Question</div>
         <div id="answer-buttons" class="button-grid">
@@ -25,18 +24,44 @@
         </div>
       </div>
 
+      <!-- display for scores at end of quiz -->
+      <div id="score-container" class='hide score-container'>
+        <h4 id='user-heading' class='hide'>Top 5 High Scores</h4>
+        <ol id='user-display'></ol>
+        <div id ="user-form" class="input-group input-group-lg hide">
+          <div class="input-group-prepend">
+            <span class="input-group-text font-weight-bold" id="inputGroup-sizing-lg">Name</span>
+          </div>
+            <input id ='user' type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+        <button id="submit-btn" class="submit-button btn hide">Submit Score</button>
+      </div>
+
+      <!-- Buttons to control main display -->
       <div id="controls" class="controls">
-        <button id="start-btn" class="start-button btn">Start Quiz</button>
-        <button id="next-btn" class="next-button btn hide">Next Question</button>
-        <button id="score-btn" class="score-button btn">View Scores</button>
-        <button id="clr-btn" class="clear-button btn hide">Clear Scores</button>
+        <button id="startBtn" class="start-button btn">Start Quiz</button>
+        <button id="nextBtn" class="next-button btn hide">Next Question</button>
+        <button id="scoreBtn" class="score-button btn">View Scores</button>
+        <button id="clrBtn" class="clear-button btn hide">Clear Scores</button>
+      </div>
+
+      <!-- display for timer -->
+      <div id="timer" class='hide timer-container'>
+        <h3 id='time'>Time</h3>
       </div>
       
     </div>
 
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!--JavaScript -->
     <script src="assets/js/questions.js"></script>
     <script src="assets/js/index.js"></script>
+  
   
   </body>
 </html>

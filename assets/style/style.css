@@ -9,7 +9,10 @@ body{
     background: black;
     justify-content: center;  
     align-content: center;
-     
+}
+
+.hide{
+    display: none;
 }
 
 .container{
@@ -18,8 +21,6 @@ body{
     margin: 0 auto;
     border-radius: 7px;
     padding: 20px;
-    
-
 }
 
 .navbar{
@@ -35,8 +36,8 @@ body{
 }
 
 .linebreak {
-    border: 2px #0074D9 solid;
-    width: 90%;
+    border: 2px blue solid;
+    width: 80%;
 }
 
 .button-grid{
@@ -48,7 +49,6 @@ body{
 .btn{
     border: 1px solid black;
     padding: 10px 0;
-    
 }
 
 .btn-success:hover{
@@ -72,13 +72,32 @@ body{
     font-weight: bolder;
 }
 
+.input-group-text, .form-control {
+    border: 1px solid black;
+    padding: 0px 10px;
+    font-family: 'serif', sans-serif;
+    height: 57px;
+}
+    
+.input-group-text{
+    color: white;
+    background:black;
+}
+
+.form-control{
+    background: white;
+    color: black;
+}
+
 .controls{
     display: grid;
     gap: 10px;
 }
 
-.hide{
-    display: none;
+
+.timer-container{
+    margin-top: 10px;
+    text-align: center;
 }
 
 .score-container{
