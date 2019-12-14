@@ -76,7 +76,6 @@ function answerClick(e) {
         $(e.target).addClass('btn-danger');
         score -= 15;
         time.text(`Time Left: ${score}`)
-        time.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
      }
 };
 
