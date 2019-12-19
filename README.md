@@ -9,7 +9,7 @@ This application is a Javascript Quiz that will test your knowledge of basic JS 
 
 Main Landing Screen for the quiz.
 
-![screenshot]()
+![screenshot](https://github.com/Modern-Viking/quizTime/blob/master/assets/images/js-quiz.jpg?raw=true)
 
 ## Instructions
 
